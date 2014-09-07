@@ -39,8 +39,8 @@ public class ConfigurationExtractor {
                         case "main":
                             config.setMain(reader.nextString());
                             break;
-                        case "version":
-                            config.setVersion(reader.nextString());
+                        case "name":
+                            config.setName(reader.nextString());
                             break;
                         case "apiKey":
                             config.setApiKey(reader.nextString());

@@ -2,7 +2,7 @@ package technology.raeder.yoappserver.loader;
 
 public class AppConfiguration {
     
-    private String apiKey, main, version, url;
+    private String apiKey, main, name, url;
     
     /**
      * The AppConfiguration is used to store information about the YoApp.
@@ -18,8 +18,8 @@ public class AppConfiguration {
         return main;
     }
 
-    public String getVersion() {
-        return version;
+    public String getName() {
+        return name;
     }
     
     public String getUrl() {
@@ -34,8 +34,8 @@ public class AppConfiguration {
         this.main = main;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setName(String name) {
+        this.name = name;
     }
     
     public void setUrl(String url) {
@@ -47,12 +47,12 @@ public class AppConfiguration {
      * @return If the configuration is valid or not.
      */
     public boolean isValid() {
-        return (apiKey != null && main != null && version != null && url != null);
+        return (main != null && name != null && url != null);
     }
 
     @Override
     public String toString() {
-        return "AppConfiguration{" + "apiKey=" + apiKey + ", main=" + main + ", version=" + version + '}';
+        return "AppConfiguration{" + "apiKey=" + apiKey + ", main=" + main + ", name=" + name + '}';
     }
 
 }

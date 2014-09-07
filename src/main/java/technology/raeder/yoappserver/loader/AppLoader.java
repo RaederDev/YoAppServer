@@ -93,6 +93,7 @@ public class AppLoader {
      */
     public void enableAllApps() {
         for(LoadedYoApp app: apps) {
+            log.info("Enabling " + app.getConfig().getName() + "!");
             app.getApp().setApiKey(app.getConfig().getApiKey());
             app.getApp().onEnable();
         }
@@ -103,6 +104,7 @@ public class AppLoader {
      */
     public void disableAllApps() {
         for(LoadedYoApp app: apps) {
+            log.info("Disabling " + app.getConfig().getName() + "!");
             app.getApp().onDisable();
         }
         apps.clear();

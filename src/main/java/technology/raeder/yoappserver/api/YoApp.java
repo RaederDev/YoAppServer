@@ -26,8 +26,9 @@ public abstract class YoApp {
     public abstract void onMessage(String username, String queryUrl);
     
     /**
-     * This method is invoked by the server to set the API key.
-     * @param key
+     * This method is invoked by the server before onEnable to set the API key.
+     * Override this method if you need to set your API key and don't want to use the configuration file.
+     * @param key The api key configured in the configuration or null if none was found.
      */
     public void setApiKey(String key) {
         this.apiKey = key;

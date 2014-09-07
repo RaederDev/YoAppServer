@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jsoup.Jsoup;
+import technology.raeder.yoappserver.api.exceptions.NoApiKeyException;
 
 public class YoCommunicator {
 
@@ -17,7 +18,16 @@ public class YoCommunicator {
         this.app = app;
     }
 
-    public void sendYo(final String username, final String url) {
+    /**
+     * Send a yo to a username
+     * @param username The username that should receive the yo.
+     * @param url The url that should be attached to the yo.
+     * @throws NoApiKeyException 
+     */
+    public void sendYo(final String username, final String url) throws NoApiKeyException {
+        if(app.getApiKey() == null) {
+            throw new NoApiKeyException();
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -34,7 +44,15 @@ public class YoCommunicator {
         }).start();
     }
 
-    public void sendYoToAll(final String url) {
+    /**
+     * Send a yo to all subscribers.
+     * @param url The url that should be attached to the yo.
+     * @throws NoApiKeyException 
+     */
+    public void sendYoToAll(final String url) throws NoApiKeyException {
+        if(app.getApiKey() == null) {
+            throw new NoApiKeyException();
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -51,15 +69,27 @@ public class YoCommunicator {
         }).start();
     }
 
-    public void sendYo(String username) {
+    /**
+     * Send a yo to a username
+     * @param username The username that should receive the yo.
+     * @throws NoApiKeyException 
+     */
+    public void sendYo(String username) throws NoApiKeyException {
         this.sendYo(username, null);
     }
 
-    public void sendYoToAll() {
+    /**
+     * Send a yo to all subscribers.
+     * @throws NoApiKeyException 
+     */
+    public void sendYoToAll() throws NoApiKeyException {
         this.sendYoToAll(null);
     }
 
-    public long getSubscriberCount() {
+    public long getSubscriberCount() throws NoApiKeyException {
+        if(app.getApiKey() == null) {
+            throw new NoApiKeyException();
+        }
         return 0;
     }
 
