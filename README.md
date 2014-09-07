@@ -3,8 +3,8 @@ YoAppServer
 
 YoAppServer is a simple solution for creating server side applications that interact with the Yo developer API. It is written in Java utilizing many OpenSource technologies. The Server itself is not only a fully functional webserver to handle callbacks but also offers a API to interact with the Yo API servers.
 
-To get started download the already compiled jar file:
-[https://github.com/DudeNamedBen/YoAppServer/blob/master/YoAppServer.jar][1]
+To get started download the already compiled jar file and the dependencies:
+[https://github.com/DudeNamedBen/YoAppServer/blob/master/YoAppServer.zip][1]
 or compile it from source using maven.
 
 
@@ -84,4 +84,4 @@ Here you can find an example of what you can do with the API. The App will liste
 
 Once you have finished writing your App compile it into a jar file, put it into the "apps" folder of your server and start the server. The server will automatically detect and load your app.
 
-[1]: https://github.com/DudeNamedBen/YoAppServer/blob/master/YoAppServer.jar
+[1]: https://github.com/DudeNamedBen/YoAppServer/blob/master/YoAppServer.zip
