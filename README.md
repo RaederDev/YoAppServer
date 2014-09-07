@@ -29,53 +29,52 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
 
     public class App extends YoApp {
 
-      private final YoCommunicator communicator;
+        private final YoCommunicator communicator;
       
-      public App() {
-          communicator = new YoCommunicator(this);
-      }
+        public App() {
+            communicator = new YoCommunicator(this);
+        }
   
-      @Override
-      public void onDisable() {
-          System.out.println("BitcoinYo disable method called.");
-      }
+        @Override
+        public void onDisable() {
+            System.out.println("BitcoinYo disable method called.");
+        }
   
-      @Override
-      public void onEnable() {
-          System.out.println("BitcoinYo enable method called.");
-      }
+        @Override
+        public void onEnable() {
+            System.out.println("BitcoinYo enable method called.");
+        }
       
-      @Override
-      public void onMessage(String username, String url, String userSuppliedUrl) {
-          if(userSuppliedUrl != null) {
-              System.out.println("The user has sent the following Url: " + userSuppliedUrl);
-          }
-          try {
-              communicator.getSubscriberCount(new SuccessSubscriberCallback() {
-                  @Override
-                  public void run() {
-                      if(getSuccess()) {
-                          System.out.println("We have: " + getSubscribers() + " Subscribers!");
-                      } else {
-                          System.out.println("We have recveived an error: " + getError());
-                      }
-                  }
-              });
-              communicator.sendYo(new SuccessCallback() {
-                  @Override
-                  public void run() {
-                      if(getSuccess()) {
-                          System.out.println("The User has successfully received the Yo!");
-                      } else {
-                          System.out.println("An Error occured: " + getError());
-                      }
-                  }
-              }, username);
-          } catch (NoApiKeyException ex) {
-              Logger.getLogger(BitcoinYo.class.getName()).log(Level.SEVERE, null, ex);
-          }
-      }
-
+        @Override
+        public void onMessage(String username, String url, String userSuppliedUrl) {
+            if(userSuppliedUrl != null) {
+                System.out.println("The user has sent the following Url: " + userSuppliedUrl);
+            }
+            try {
+                communicator.getSubscriberCount(new SuccessSubscriberCallback() {
+                    @Override
+                    public void run() {
+                        if(getSuccess()) {
+                            System.out.println("We have: " + getSubscribers() + " Subscribers!");
+                        } else {
+                            System.out.println("We have recveived an error: " + getError());
+                        }
+                    }
+                });
+                communicator.sendYo(new SuccessCallback() {
+                    @Override
+                    public void run() {
+                        if(getSuccess()) {
+                            System.out.println("The User has successfully received the Yo!");
+                        } else {
+                            System.out.println("An Error occured: " + getError());
+                        }
+                    }
+                }, username);
+            } catch (NoApiKeyException ex) {
+                Logger.getLogger(BitcoinYo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
   [1]: http://google.at
