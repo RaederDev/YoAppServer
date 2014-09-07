@@ -13,7 +13,7 @@ Once you have aquired the jar file put it into the folder where you want to run 
     java -jar YoAppServer.jar
 The server will generate all needed configuration files and the apps folder. Once you have a working AppServer you can start developing your own apps.
 
-Add the AppServer as a dependency for your Project and add a file called "app.json" in the root package of your project, the AppServer will read this configuration file when enabling your App.
+Add the AppServer as a dependency to your Project and add a file called "app.json" in the root package of your project, the AppServer will read this configuration file when enabling your App.
 
     {
         "main": "your.package.app.App",
