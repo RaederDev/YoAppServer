@@ -28,7 +28,8 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
  - The apiKey parameter should be your API key, if you don't want to specify it in your app configuration you can also override the getApiKey method of YoApp and ommit this entry.
 
 
-    ```public class App extends YoApp {
+    ```
+    public class App extends YoApp {
 
         private final YoCommunicator communicator;
         
@@ -77,7 +78,8 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
             }
         }
 
-    }```
+    }
+    ```
     
 
 
