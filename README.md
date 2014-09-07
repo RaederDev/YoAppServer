@@ -26,7 +26,7 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
  - The name parameter is the name of your project.
  - The url parameter is a relative callback url that the app should listen for. For example when you server has the address mydomain.com the appserver would listen on port 4242 (if you haven't changed that in the configuration file) resulting in the base url of: http://mydomain.com:4242/, when you now specify that you app listens for /relativeCallbackUrl your app will be notified when the YoApp servers accesses: http://mydomain.com:4242/relativeCallbackUrl
  - The apiKey parameter should be your API key, if you don't want to specify it in your app configuration you can also override the getApiKey method of YoApp and ommit this entry.
-    
+
     public class App extends YoApp {
 
         private final YoCommunicator communicator;
@@ -76,6 +76,6 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
             }
         }
     }
-        
+
 
   [1]: http://google.at
