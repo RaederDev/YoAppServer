@@ -20,6 +20,14 @@ public class Server {
             //enable all loaded apps
             appLoader.enableAllApps();
             
+            //add shutdown hook
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    appLoader.disableAllApps();
+                }
+            });
+            
             //start the webserver and listen for yo callbacks
             new WebServer(serverConfig, appLoader.getApps()).start();
         } catch (URISyntaxException ex) {

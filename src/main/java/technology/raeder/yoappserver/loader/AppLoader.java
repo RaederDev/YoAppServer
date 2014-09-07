@@ -78,6 +78,8 @@ public class AppLoader {
                     Object yoApp = factory.create(jcl, config.getMain());
                     if(yoApp instanceof YoApp) {
                         apps.add(new LoadedYoApp((YoApp) yoApp, config));
+                    } else {
+                        log.warn("Could not load " + jarUrl + " main class is not an instance of YoApp.");
                     }
                 } else {
                     log.warn("Could not load " + jarUrl + " invalid or missing configuration.");
