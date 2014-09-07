@@ -4,7 +4,7 @@ YoAppServer
 YoAppServer is a simple solution for creating server side applications that interact with the Yo developer API. It is written in Java utilizing many OpenSource technologies. The Server itself is not only a fully functional webserver to handle callbacks but also offers a API to interact with the Yo API servers.
 
 To get started download the already compiled jar file:
-[http://google.at][1]
+[https://github.com/DudeNamedBen/YoAppServer/blob/master/YoAppServer.jar][1]
 or compile it from source using maven.
 
 
@@ -27,6 +27,7 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
  - The url parameter is a relative callback url that the app should listen for. For example when you server has the address mydomain.com the appserver would listen on port 4242 (if you haven't changed that in the configuration file) resulting in the base url of: http://mydomain.com:4242/, when you now specify that you app listens for /relativeCallbackUrl your app will be notified when the YoApp servers accesses: http://mydomain.com:4242/relativeCallbackUrl
  - The apiKey parameter should be your API key, if you don't want to specify it in your app configuration you can also override the getApiKey method of YoApp and ommit this entry.
 
+Here you can find an example of what you can do with the API. The App will listen for incoming Yos and will fetch the current subscriber count once a yo is reveived, then it will yo the user back. All Operations are done asynchronously to avoid locking the main thread.
 
     ```
     public class App extends YoApp {
@@ -80,7 +81,7 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
 
     }
     ```
-    
 
+Once you have finished writing your App compile it into a jar file, put it into the "apps" folder of your server and start the server. The server will automatically detect and load your app.
 
-[1]: http://google.at
+[1]: https://github.com/DudeNamedBen/YoAppServer/blob/master/YoAppServer.jar
