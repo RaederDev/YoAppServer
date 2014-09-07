@@ -29,7 +29,7 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
 
 Here you can find an example of what you can do with the API. The App will listen for incoming Yos and will fetch the current subscriber count once a yo is reveived, then it will yo the user back. All Operations are done asynchronously to avoid locking the main thread.
 
-    ```
+    
     public class App extends YoApp {
 
         private final YoCommunicator communicator;
@@ -80,7 +80,7 @@ Here you can find an example of what you can do with the API. The App will liste
         }
 
     }
-    ```
+    
 
 Once you have finished writing your App compile it into a jar file, put it into the "apps" folder of your server and start the server. The server will automatically detect and load your app.
 
