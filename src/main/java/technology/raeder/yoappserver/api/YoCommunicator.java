@@ -1,12 +1,10 @@
 package technology.raeder.yoappserver.api;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -92,7 +90,8 @@ public class YoCommunicator {
     /**
      * Send a yo to all subscribers.
      *
-     * @param callback The callback that is called when the response has finished
+     * @param callback The callback that is called when the response has
+     * finished
      * @throws NoApiKeyException
      */
     public void sendYoToAll(final SuccessCallback callback) throws NoApiKeyException {
@@ -101,8 +100,9 @@ public class YoCommunicator {
 
     /**
      * Calls the callback and sets the current amount of subscribers.
+     *
      * @param callback The Callback to call.
-     * @throws NoApiKeyException 
+     * @throws NoApiKeyException
      */
     public void getSubscriberCount(SuccessSubscriberCallback callback) throws NoApiKeyException {
         try {
@@ -112,31 +112,29 @@ public class YoCommunicator {
             final CloseableHttpClient httpclient = HttpClients.createDefault();
             final HttpGet httpGet = new HttpGet("https://api.justyo.co/subscribers_count/?api_token=" + app.getApiKey());
             final CloseableHttpResponse response = httpclient.execute(httpGet);
-            final boolean success = response.getStatusLine().getStatusCode() == 200;
             final InputStream is = response.getEntity().getContent();
             final String json = IOUtils.toString(is, "UTF-8");
             EntityUtils.consume(response.getEntity());
             response.close();
-            final JsonElement parsed = new JsonParser().parse(json);
-            long numberOfSubs = -1;
-            if (parsed.isJsonObject()) {
-                final JsonObject obj = parsed.getAsJsonObject();
-                if (obj.has("result")) {
-                    numberOfSubs = obj.get("result").getAsLong();
-                }
+            final String result = parseJsonResult(json);
+            try {
+                final long subs = Long.parseLong(result);
+                callback.setSubscribers(subs);
+                informCallback(callback, true);
+            } catch(java.lang.NumberFormatException ex) {
+                callback.setError(result);
+                informCallback(callback, false);
             }
-            callback.setSubscribers(numberOfSubs);
-            callback.setSuccess(success);
-            callback.run();
         } catch (IOException ex) {
             Logger.getLogger(YoCommunicator.class.getName()).log(Level.SEVERE, null, ex);
-            callback.setSuccess(false);
-            callback.run();
+            callback.setError("IOException");
+            informCallback(callback, false);
         }
     }
 
     /**
      * Sends an API request and calls the callback.
+     *
      * @param apiUrl The API url to call.
      * @param apiKey The API key to send.
      * @param username The username to send (optional).
@@ -145,6 +143,8 @@ public class YoCommunicator {
      */
     private void sendGenericApiRequest(String apiUrl, String apiKey, String username, String url, SuccessCallback callback) {
         try {
+            
+            //create http client and post data
             final CloseableHttpClient httpclient = HttpClients.createDefault();
             final HttpPost httpPost = new HttpPost(apiUrl);
             final List<NameValuePair> postData = new ArrayList<NameValuePair>();
@@ -155,26 +155,61 @@ public class YoCommunicator {
             if (url != null) {
                 postData.add(new BasicNameValuePair("link", url));
             }
+            
+            //set the post data
             httpPost.setEntity(new UrlEncodedFormEntity(postData));
+            
+            //receive the response
             final CloseableHttpResponse response = httpclient.execute(httpPost);
-            final boolean success = response.getStatusLine().getStatusCode() == 200;
+            final InputStream is = response.getEntity().getContent();
+            final String json = IOUtils.toString(is, "UTF-8");
             EntityUtils.consume(response.getEntity());
             response.close();
-            informCallback(callback, success);
+            
+            //parse the json and call the callback
+            final String result = parseJsonResult(json);
+            if(result.equalsIgnoreCase("ok")) {
+                informCallback(callback, true);
+            } else {
+                callback.setError(result);
+                informCallback(callback, false);
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(YoCommunicator.class.getName()).log(Level.SEVERE, null, ex);
+            callback.setError("IOException");
             informCallback(callback, false);
         }
     }
 
     /**
      * Informs the callback if the call was successful or not and calls it.
+     *
      * @param callback
-     * @param success 
+     * @param success
      */
     private void informCallback(SuccessCallback callback, boolean success) {
         callback.setSuccess(success);
         callback.run();
+    }
+
+    /**
+     * Parses the received data and returns the result.
+     * @param json
+     * @return 
+     */
+    private String parseJsonResult(String json) {
+        final JsonElement parsed = new JsonParser().parse(json);
+        if (parsed.isJsonObject()) {
+            final JsonObject obj = parsed.getAsJsonObject();
+            if (obj.has("result")) {
+                return obj.get("result").getAsString();
+            }
+            if(obj.has("error")) {
+                return obj.get("error").getAsString();
+            }
+        }
+        return "no json received: " + json;
     }
 
 }

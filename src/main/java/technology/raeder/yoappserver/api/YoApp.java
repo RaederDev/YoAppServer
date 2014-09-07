@@ -22,8 +22,9 @@ public abstract class YoApp {
      * This method gets called when a new YO is received.
      * @param username The username that sent the YO.
      * @param queryUrl The url that was called by the YO server.
+     * @param userSuppliedUrl If the user sent a url with his YO this parameter contains it otherwise the parameter is null.
      */
-    public void onMessage(String username, String queryUrl) {};
+    public void onMessage(String username, String queryUrl, String userSuppliedUrl) {};
     
     /**
      * This method is invoked by the server before onEnable to set the API key.
@@ -36,7 +37,7 @@ public abstract class YoApp {
     
     /**
      * Get the API key.
-     * @return 
+     * @return The Api key.
      */
     public String getApiKey() {
         return this.apiKey;

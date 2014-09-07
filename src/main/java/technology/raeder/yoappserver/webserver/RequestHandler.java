@@ -31,11 +31,12 @@ public class RequestHandler extends AbstractHandler {
         //get the username and inform all registered apps
         String requestUrl = baseRequest.getRequestURI();
         final String username = baseRequest.getParameter("username");
+        final String link = baseRequest.getParameter("link");
         if(username != null) {
             if(requestUrl.endsWith("/")) {
                 requestUrl = requestUrl.substring(0, requestUrl.length()-1);
             }
-            new AsyncYoInformer(apps, requestUrl, username).start();
+            new AsyncYoInformer(apps, requestUrl, username, link).start();
         } else {
             log.info("Invalid request on URL " + baseRequest.getUri().toString());
         }
