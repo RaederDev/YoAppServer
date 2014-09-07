@@ -30,21 +30,21 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
     public class App extends YoApp {
 
         private final YoCommunicator communicator;
-      
+        
         public App() {
             communicator = new YoCommunicator(this);
         }
-  
+
         @Override
         public void onDisable() {
-            System.out.println("BitcoinYo disable method called.");
+            System.out.println("App disable method called.");
         }
-  
+
         @Override
         public void onEnable() {
-            System.out.println("BitcoinYo enable method called.");
+            System.out.println("App enable method called.");
         }
-      
+        
         @Override
         public void onMessage(String username, String url, String userSuppliedUrl) {
             if(userSuppliedUrl != null) {
@@ -72,10 +72,11 @@ Add the AppServer as a dependency for your Project and add a file called "app.js
                     }
                 }, username);
             } catch (NoApiKeyException ex) {
-                Logger.getLogger(BitcoinYo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 
 
-  [1]: http://google.at
+[1]: http://google.at
