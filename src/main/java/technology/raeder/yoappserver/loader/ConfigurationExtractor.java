@@ -53,6 +53,7 @@ public class ConfigurationExtractor {
                 reader.endObject();
                 reader.close();
                 is.close();
+                zip.close();
                 return config;
             }
         } catch (IOException ex) {

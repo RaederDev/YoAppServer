@@ -23,7 +23,7 @@ public abstract class YoApp {
      * @param username The username that sent the YO.
      * @param queryUrl The url that was called by the YO server.
      */
-    public abstract void onMessage(String username, String queryUrl);
+    public void onMessage(String username, String queryUrl) {};
     
     /**
      * This method is invoked by the server before onEnable to set the API key.
