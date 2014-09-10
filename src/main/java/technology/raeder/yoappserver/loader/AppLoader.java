@@ -77,7 +77,9 @@ public class AppLoader {
                     jcl.add(jarUrl);
                     Object yoApp = factory.create(jcl, config.getMain());
                     if(yoApp instanceof YoApp) {
-                        apps.add(new LoadedYoApp((YoApp) yoApp, config));
+                        final YoApp yoInstance = (YoApp) yoApp;
+                        yoInstance.setAppPath(appFolder + File.separator);
+                        apps.add(new LoadedYoApp(yoInstance, config));
                     } else {
                         log.warn("Could not load " + jarUrl + " main class is not an instance of YoApp.");
                     }

@@ -6,7 +6,7 @@ package technology.raeder.yoappserver.api;
  */
 public abstract class YoApp {
     
-    private String apiKey;
+    private String apiKey, appPath;
     
     /**
      * Called when the app starts
@@ -41,6 +41,21 @@ public abstract class YoApp {
      */
     public String getApiKey() {
         return this.apiKey;
+    }
+    
+    /**
+     * Get the absolute path to the folder where the app is.
+     * @return The absolute path to the folder where the app is.
+     */
+    public String getAppPath() {
+        return appPath;
+    }
+    
+    /**
+     * Set the app path.
+    */
+    public void setAppPath(String path) {
+        this.appPath = path;
     }
 
 }
